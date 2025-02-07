@@ -10,8 +10,6 @@
 import time
 from typing import Optional
 
-from events import Events
-
 from opensearchpy.metrics.metrics import Metrics
 
 
@@ -35,6 +33,8 @@ class MetricsEvents(Metrics):
         return self._service_time
 
     def __init__(self) -> None:
+        from events import Events
+
         self.events = Events()
         self._start_time: Optional[float] = None
         self._end_time: Optional[float] = None
