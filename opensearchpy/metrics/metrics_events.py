@@ -33,7 +33,10 @@ class MetricsEvents(Metrics):
         return self._service_time
 
     def __init__(self) -> None:
-        from events import Events
+        raise NotImplementedError(
+            'MetricsEvents is enabled in this fork'
+        )
+        Events = object()
 
         self.events = Events()
         self._start_time: Optional[float] = None
