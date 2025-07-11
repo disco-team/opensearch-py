@@ -3,9 +3,27 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
 ### Added
+### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@89c586c](https://github.com/opensearch-project/opensearch-api-specification/commit/89c586cfe65584f789e8fccc5f6c416cee1e8b3b)
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@cac8c5d](https://github.com/opensearch-project/opensearch-api-specification/commit/cac8c5d8ab39c702c6c428cfdc3a3a710cf2c0b0)
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@578a78d](https://github.com/opensearch-project/opensearch-api-specification/commit/578a78dcec746e81da88f81ad442ab1836db7694)
+### Changed
+- Rename `DenseVector` field type to `KnnVector` ([925](https://github.com/opensearch-project/opensearch-py/pull/925))
+### Deprecated
+### Removed
+### Fixed
+### Security
+### Dependencies
+- Bumps `aiohttp` from >=3.9.4,<4 to >=3.10.11,<4 ([#920](https://github.com/opensearch-project/opensearch-py/pull/920))
+
+
+## [3.0.0]
+### Added
 - Added option to pass custom headers to 'AWSV4SignerAsyncAuth' ([863](https://github.com/opensearch-project/opensearch-py/pull/863))
 - Added sync and async sample that uses `search_after` parameter ([859](https://github.com/opensearch-project/opensearch-py/pull/859))
+- Enforced mandatory keyword-only arguments for calling auto-generated OpenSearch-py APIs ([#907](https://github.com/opensearch-project/opensearch-py/pull/907))
 ### Updated APIs
+- Updated opensearch-py APIs to reflect [opensearch-api-specification@d4eab1a](https://github.com/opensearch-project/opensearch-api-specification/commit/d4eab1a2e59db2b28e58a83df29bd72fc99c71b4)
 ### Changed
 - Small refactor of AWS Signer classes for both sync and async clients ([866](https://github.com/opensearch-project/opensearch-py/pull/866))
 - Small refactor to fix overwriting the module files when generating apis ([874](https://github.com/opensearch-project/opensearch-py/pull/874))
@@ -266,7 +284,8 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Fixed link checker failing due to relative link ([#760](https://github.com/opensearch-project/opensearch-py/pull/760))
 ### Security
 
-[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v2.8.0...HEAD
+[Unreleased]: https://github.com/opensearch-project/opensearch-py/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.8.0...v3.0.0
 [2.8.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.1...v2.8.0
 [2.7.1]: https://github.com/opensearch-project/opensearch-py/compare/v2.7.0...v2.7.1
 [2.7.0]: https://github.com/opensearch-project/opensearch-py/compare/v2.6.0...v2.7.0

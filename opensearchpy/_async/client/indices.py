@@ -43,6 +43,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def analyze(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -89,6 +90,7 @@ class IndicesClient(NamespacedClient):
     )
     async def refresh(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -97,7 +99,7 @@ class IndicesClient(NamespacedClient):
         Performs the refresh operation in one or more indexes.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -142,6 +144,7 @@ class IndicesClient(NamespacedClient):
     )
     async def flush(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -150,7 +153,7 @@ class IndicesClient(NamespacedClient):
         Performs the flush operation on one or more indexes.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to flush. Supports wildcards (`*`). To flush all data streams
             and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -200,6 +203,7 @@ class IndicesClient(NamespacedClient):
     )
     async def create(
         self,
+        *,
         index: Any,
         body: Any = None,
         params: Any = None,
@@ -209,7 +213,7 @@ class IndicesClient(NamespacedClient):
         Creates an index with optional settings and mappings.
 
 
-        :arg index: Name of the index you wish to create.
+        :arg index: The name of the index you wish to create.
         :arg body: The configuration for the index (`settings` and
             `mappings`)
         :arg cluster_manager_timeout: Operation timeout for connection
@@ -234,9 +238,9 @@ class IndicesClient(NamespacedClient):
             received before the timeout expires, the request fails and returns an
             error.
         :arg wait_for_active_shards: The number of shard copies that
-            must be active before proceeding with the operation.  Set to `all` or
-            any positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            must be active before proceeding with the operation. Set to `all` or any
+            positive integer up to the total number of shards in the index
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -260,6 +264,7 @@ class IndicesClient(NamespacedClient):
     )
     async def clone(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -300,7 +305,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -333,6 +338,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -341,7 +347,7 @@ class IndicesClient(NamespacedClient):
         Returns information about one or more indexes.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             index aliases used to limit the request. Wildcard expressions (*) are
             supported.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -357,7 +363,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard expressions
             can match. If the request can target data streams, this argument
             determines whether wildcard expressions match hidden data streams.
-            Supports comma-separated values, such as `open,hidden`.
+            Supports comma-separated values, such as `open,hidden`. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -407,6 +414,7 @@ class IndicesClient(NamespacedClient):
     )
     async def open(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -415,7 +423,7 @@ class IndicesClient(NamespacedClient):
         Opens an index.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). By default,
             you must explicitly name the indexes you using to limit the request. To
             limit a request using `_all`, `*`, or other wildcard expressions, change
@@ -459,7 +467,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -486,6 +494,7 @@ class IndicesClient(NamespacedClient):
     )
     async def close(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -494,8 +503,8 @@ class IndicesClient(NamespacedClient):
         Closes an index.
 
 
-        :arg index: Comma-separated list or wildcard expression of index
-            names used to limit the request.
+        :arg index: A comma-separated list or wildcard expression of
+            index names used to limit the request.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indexes. This behavior applies even if the request
@@ -531,7 +540,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if index in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'index'.")
@@ -555,6 +564,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -563,7 +573,7 @@ class IndicesClient(NamespacedClient):
         Deletes an index.
 
 
-        :arg index: Comma-separated list of indexes to delete. You
+        :arg index: A comma-separated list of indexes to delete. You
             cannot specify index aliases. By default, this parameter does not
             support wildcards (`*`) or `_all`. To use wildcards or `_all`, set the
             `action.destructive_requires_name` cluster setting to `false`.
@@ -623,6 +633,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists(
         self,
+        *,
         index: Any,
         params: Any = None,
         headers: Any = None,
@@ -631,7 +642,7 @@ class IndicesClient(NamespacedClient):
         Returns information about whether a particular index exists.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases. Supports wildcards (`*`).
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -688,6 +699,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_mapping(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -764,6 +776,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_mapping(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -772,7 +785,7 @@ class IndicesClient(NamespacedClient):
         Returns mappings for one or more indexes.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -825,6 +838,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_field_mapping(
         self,
+        *,
         fields: Any,
         index: Any = None,
         params: Any = None,
@@ -834,9 +848,9 @@ class IndicesClient(NamespacedClient):
         Returns mapping for one or more fields.
 
 
-        :arg fields: Comma-separated list or wildcard expression of
+        :arg fields: A comma-separated list or wildcard expression of
             fields used to limit returned information.
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -890,6 +904,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_alias(
         self,
+        *,
         name: Any,
         index: Any = None,
         params: Any = None,
@@ -899,10 +914,10 @@ class IndicesClient(NamespacedClient):
         Returns information about whether a particular alias exists.
 
 
-        :arg name: Comma-separated list of aliases to check. Supports
+        :arg name: A comma-separated list of aliases to check. Supports
             wildcards (`*`).
-        :arg index: Comma-separated list of data streams or indexes used
-            to limit the request. Supports wildcards (`*`). To target all data
+        :arg index: A comma-separated list of data streams or indexes
+            used to limit the request. Supports wildcards (`*`). To target all data
             streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -951,6 +966,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -960,12 +976,12 @@ class IndicesClient(NamespacedClient):
         Returns an alias.
 
 
-        :arg index: Comma-separated list of data streams or indexes used
-            to limit the request. Supports wildcards (`*`). To target all data
+        :arg index: A comma-separated list of data streams or indexes
+            used to limit the request. Supports wildcards (`*`). To target all data
             streams and indexes, omit this parameter or use `*` or `_all`.
-        :arg name: Comma-separated list of aliases to retrieve. Supports
-            wildcards (`*`). To retrieve all aliases, omit this parameter or use `*`
-            or `_all`.
+        :arg name: A comma-separated list of aliases to retrieve.
+            Supports wildcards (`*`). To retrieve all aliases, omit this parameter
+            or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indexes. This behavior applies even if the request
@@ -1008,6 +1024,7 @@ class IndicesClient(NamespacedClient):
     )
     async def update_aliases(
         self,
+        *,
         body: Any,
         params: Any = None,
         headers: Any = None,
@@ -1058,6 +1075,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_alias(
         self,
+        *,
         index: Any,
         name: Any,
         params: Any = None,
@@ -1067,9 +1085,9 @@ class IndicesClient(NamespacedClient):
         Deletes an alias.
 
 
-        :arg index: Comma-separated list of data streams or indexes used
-            to limit the request. Supports wildcards (`*`).
-        :arg name: Comma-separated list of aliases to remove. Supports
+        :arg index: A comma-separated list of data streams or indexes
+            used to limit the request. Supports wildcards (`*`).
+        :arg name: A comma-separated list of aliases to remove. Supports
             wildcards (`*`). To remove all aliases, use `*` or `_all`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -1114,6 +1132,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -1175,6 +1194,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1226,6 +1246,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1234,10 +1255,10 @@ class IndicesClient(NamespacedClient):
         Returns an index template.
 
 
-        :arg name: Comma-separated list of index template names used to
-            limit the request. Wildcard (`*`) expressions are supported. To return
-            all index templates, omit this parameter or use a value of `_all` or
-            `*`.
+        :arg name: A comma-separated list of index template names used
+            to limit the request. Wildcard (`*`) expressions are supported. To
+            return all index templates, omit this parameter or use a value of `_all`
+            or `*`.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -1277,6 +1298,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -1333,6 +1355,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_settings(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         params: Any = None,
@@ -1342,10 +1365,10 @@ class IndicesClient(NamespacedClient):
         Returns settings for one or more indexes.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
-        :arg name: Comma-separated list or wildcard expression of
+        :arg name: A comma-separated list or wildcard expression of
             settings to retrieve.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
@@ -1360,7 +1383,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1406,6 +1430,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_settings(
         self,
+        *,
         body: Any,
         index: Any = None,
         params: Any = None,
@@ -1415,7 +1440,7 @@ class IndicesClient(NamespacedClient):
         Updates the index settings.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -1431,7 +1456,8 @@ class IndicesClient(NamespacedClient):
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1453,7 +1479,7 @@ class IndicesClient(NamespacedClient):
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg timeout: Period to wait for a response. If no response is
-            received before the  timeout expires, the request fails and returns an
+            received before the timeout expires, the request fails and returns an
             error.
         """
         if body in SKIP_IN_PATH:
@@ -1485,6 +1511,7 @@ class IndicesClient(NamespacedClient):
     )
     async def stats(
         self,
+        *,
         index: Any = None,
         metric: Any = None,
         params: Any = None,
@@ -1498,17 +1525,18 @@ class IndicesClient(NamespacedClient):
             empty string to perform the operation on all indexes
         :arg metric: Limit the information returned the specific
             metrics.
-        :arg completion_fields: Comma-separated list or wildcard
+        :arg completion_fields: A comma-separated list or wildcard
             expressions of fields to include in field data and suggest statistics.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
             whether wildcard expressions match hidden data streams. Supports comma-
-            separated values, such as `open,hidden`.
-        :arg fielddata_fields: Comma-separated list or wildcard
+            separated values, such as `open,hidden`. Valid choices are all, closed,
+            hidden, none, open.
+        :arg fielddata_fields: A comma-separated list or wildcard
             expressions of fields to include in field data statistics.
-        :arg fields: Comma-separated list or wildcard expressions of
+        :arg fields: A comma-separated list or wildcard expressions of
             fields to include in the statistics.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
@@ -1516,8 +1544,8 @@ class IndicesClient(NamespacedClient):
             with "-".
         :arg forbid_closed_indices: If `true`, statistics are not
             collected from closed indexes. Default is True.
-        :arg groups: Comma-separated list of search groups to include in
-            the search statistics.
+        :arg groups: A comma-separated list of search groups to include
+            in the search statistics.
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg include_segment_file_sizes: If `true`, the call reports the
@@ -1551,6 +1579,7 @@ class IndicesClient(NamespacedClient):
     )
     async def segments(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1559,7 +1588,7 @@ class IndicesClient(NamespacedClient):
         Provides low-level information about segments in a Lucene index.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg allow_no_indices: If `false`, the request returns an error
@@ -1613,6 +1642,7 @@ class IndicesClient(NamespacedClient):
     )
     async def validate_query(
         self,
+        *,
         body: Any = None,
         index: Any = None,
         params: Any = None,
@@ -1623,7 +1653,7 @@ class IndicesClient(NamespacedClient):
 
 
         :arg body: The query definition specified with the Query DSL
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases to search. Supports wildcards (`*`). To search all data streams
             or indexes, omit this parameter or use `*` or `_all`.
         :arg all_shards: If `true`, the validation is executed on all
@@ -1694,6 +1724,7 @@ class IndicesClient(NamespacedClient):
     )
     async def clear_cache(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1702,8 +1733,8 @@ class IndicesClient(NamespacedClient):
         Clears all or specific caches for one or more indexes.
 
 
-        :arg index: Comma-separated list of indexes; use `_all` or empty
-            string to perform the operation on all indexes.
+        :arg index: A comma-separated list of indexes; use `_all` or
+            empty string to perform the operation on all indexes.
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indexes. This behavior applies even if the request
@@ -1717,7 +1748,7 @@ class IndicesClient(NamespacedClient):
             `open`, `closed`, `hidden`, `none`.
         :arg fielddata: If `true`, clears the fields cache. Use the
             `fields` parameter to clear the cache of specific fields only.
-        :arg fields: Comma-separated list of field names used to limit
+        :arg fields: A comma-separated list of field names used to limit
             the `fielddata` parameter.
         :arg file: If `true`, clears the unused entries from the file
             cache on nodes with the Search role. Default is false.
@@ -1751,6 +1782,7 @@ class IndicesClient(NamespacedClient):
     )
     async def recovery(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1759,7 +1791,7 @@ class IndicesClient(NamespacedClient):
         Returns information about ongoing index shard recoveries.
 
 
-        :arg index: Comma-separated list of data streams, indexes, and
+        :arg index: A comma-separated list of data streams, indexes, and
             aliases used to limit the request. Supports wildcards (`*`). To target
             all data streams and indexes, omit this parameter or use `*` or `_all`.
         :arg active_only: If `true`, the response only includes ongoing
@@ -1797,6 +1829,7 @@ class IndicesClient(NamespacedClient):
     )
     async def upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1805,15 +1838,16 @@ class IndicesClient(NamespacedClient):
         The `_upgrade` API is no longer useful and will be removed.
 
 
-        :arg index: Comma-separated list of indexes; use `_all` or empty
-            string to perform the operation on all indexes.
+        :arg index: A comma-separated list of indexes; use `_all` or
+            empty string to perform the operation on all indexes.
         :arg allow_no_indices: Whether to ignore if a wildcard indexes
             expression resolves into no concrete indexes. (This includes `_all`
             string or when no indexes have been specified).
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1847,6 +1881,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_upgrade(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1855,15 +1890,16 @@ class IndicesClient(NamespacedClient):
         The `_upgrade` API is no longer useful and will be removed.
 
 
-        :arg index: Comma-separated list of indexes; use `_all` or empty
-            string to perform the operation on all indexes.
+        :arg index: A comma-separated list of indexes; use `_all` or
+            empty string to perform the operation on all indexes.
         :arg allow_no_indices: Whether to ignore if a wildcard indexes
             expression resolves into no concrete indexes. (This includes `_all`
             string or when no indexes have been specified).
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1894,6 +1930,7 @@ class IndicesClient(NamespacedClient):
     )
     async def shard_stores(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1907,12 +1944,13 @@ class IndicesClient(NamespacedClient):
         :arg allow_no_indices: If `false`, the request returns an error
             if any wildcard expression, index alias, or `_all` value targets only
             missing or closed indexes. This behavior applies even if the request
-            targets other open indexes.
+            targets other open indexes. Default is false.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Type of index that wildcard patterns can
             match. If the request can target data streams, this argument determines
-            whether wildcard expressions match hidden data streams.
+            whether wildcard expressions match hidden data streams. Valid choices
+            are all, closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -1920,13 +1958,13 @@ class IndicesClient(NamespacedClient):
         :arg human: Whether to return human readable values for
             statistics. Default is True.
         :arg ignore_unavailable: If `true`, missing or closed indexes
-            are not included in the response.
+            are not included in the response. Default is false.
         :arg pretty: Whether to pretty format the returned JSON
             response. Default is false.
         :arg source: The URL-encoded request definition. Useful for
             libraries that do not accept a request body for non-POST requests.
         :arg status: List of shard health statuses used to limit the
-            request.
+            request. Default is all.
         """
         return await self.transport.perform_request(
             "GET", _make_path(index, "_shard_stores"), params=params, headers=headers
@@ -1949,6 +1987,7 @@ class IndicesClient(NamespacedClient):
     )
     async def forcemerge(
         self,
+        *,
         index: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -1965,7 +2004,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -2011,6 +2051,7 @@ class IndicesClient(NamespacedClient):
     )
     async def shrink(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2053,7 +2094,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2085,6 +2126,7 @@ class IndicesClient(NamespacedClient):
     )
     async def split(
         self,
+        *,
         index: Any,
         target: Any,
         body: Any = None,
@@ -2128,7 +2170,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to `all` or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         :arg wait_for_completion: Should this request wait until the
             operation has completed before returning. Default is True.
         """
@@ -2158,6 +2200,7 @@ class IndicesClient(NamespacedClient):
     )
     async def rollover(
         self,
+        *,
         alias: Any,
         body: Any = None,
         new_index: Any = None,
@@ -2172,8 +2215,8 @@ class IndicesClient(NamespacedClient):
         :arg alias: Name of the data stream or index alias to roll over.
         :arg body: The conditions that needs to be met for executing
             rollover
-        :arg new_index: Name of the index to create. Supports date math.
-            Data streams do not support this parameter.
+        :arg new_index: The name of the index to create. Supports date
+            math. Data streams do not support this parameter.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg dry_run: If `true`, checks whether the current index
@@ -2201,7 +2244,7 @@ class IndicesClient(NamespacedClient):
         :arg wait_for_active_shards: The number of shard copies that
             must be active before proceeding with the operation. Set to all or any
             positive integer up to the total number of shards in the index
-            (`number_of_replicas+1`). Valid choices are all, index-setting.
+            (`number_of_replicas+1`).
         """
         if alias in SKIP_IN_PATH:
             raise ValueError("Empty value passed for a required argument 'alias'.")
@@ -2217,6 +2260,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def create_data_stream(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2260,6 +2304,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def delete_data_stream(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2268,7 +2313,7 @@ class IndicesClient(NamespacedClient):
         Deletes a data stream.
 
 
-        :arg name: Comma-separated list of data streams to delete.
+        :arg name: A comma-separated list of data streams to delete.
             Wildcard (`*`) expressions are supported.
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
@@ -2302,6 +2347,7 @@ class IndicesClient(NamespacedClient):
     )
     async def delete_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2310,8 +2356,8 @@ class IndicesClient(NamespacedClient):
         Deletes an index template.
 
 
-        :arg name: Name of the index template to delete. Wildcard (*)
-            expressions are supported.
+        :arg name: The name of the index template to delete. Wildcard
+            (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2357,6 +2403,7 @@ class IndicesClient(NamespacedClient):
     )
     async def exists_index_template(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2365,7 +2412,7 @@ class IndicesClient(NamespacedClient):
         Returns information about whether a particular index template exists.
 
 
-        :arg name: Name of the index template to check existence of.
+        :arg name: The name of the index template to check existence of.
             Wildcard (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
@@ -2410,6 +2457,7 @@ class IndicesClient(NamespacedClient):
     )
     async def get_index_template(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2418,8 +2466,8 @@ class IndicesClient(NamespacedClient):
         Returns an index template.
 
 
-        :arg name: Name of the index template to retrieve. Wildcard (*)
-            expressions are supported.
+        :arg name: The name of the index template to retrieve. Wildcard
+            (*) expressions are supported.
         :arg cluster_manager_timeout: Operation timeout for connection
             to cluster-manager node.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2461,6 +2509,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_index_template(
         self,
+        *,
         name: Any,
         body: Any,
         params: Any = None,
@@ -2517,6 +2566,7 @@ class IndicesClient(NamespacedClient):
     )
     async def simulate_index_template(
         self,
+        *,
         name: Any,
         body: Any = None,
         params: Any = None,
@@ -2563,6 +2613,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def get_data_stream(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2571,7 +2622,7 @@ class IndicesClient(NamespacedClient):
         Returns data streams.
 
 
-        :arg name: Comma-separated list of data stream names used to
+        :arg name: A comma-separated list of data stream names used to
             limit the request. Wildcard (`*`) expressions are supported. If omitted,
             all data streams are returned.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2604,6 +2655,7 @@ class IndicesClient(NamespacedClient):
     )
     async def simulate_template(
         self,
+        *,
         body: Any = None,
         name: Any = None,
         params: Any = None,
@@ -2613,7 +2665,7 @@ class IndicesClient(NamespacedClient):
         Simulate resolving the given template name or body.
 
 
-        :arg name: Name of the index template to simulate. To test a
+        :arg name: The name of the index template to simulate. To test a
             template configuration before you add it to the cluster, omit this
             parameter and specify the template configuration in the request body.
         :arg cause: User defined reason for dry-run creating the new
@@ -2655,6 +2707,7 @@ class IndicesClient(NamespacedClient):
     )
     async def resolve_index(
         self,
+        *,
         name: Any,
         params: Any = None,
         headers: Any = None,
@@ -2706,6 +2759,7 @@ class IndicesClient(NamespacedClient):
     )
     async def add_block(
         self,
+        *,
         index: Any,
         block: Any,
         params: Any = None,
@@ -2726,7 +2780,8 @@ class IndicesClient(NamespacedClient):
         :arg error_trace: Whether to include the stack trace of returned
             errors. Default is false.
         :arg expand_wildcards: Whether to expand wildcard expression to
-            concrete indexes that are open, closed or both.
+            concrete indexes that are open, closed or both. Valid choices are all,
+            closed, hidden, none, open.
         :arg filter_path: Used to reduce the response. This parameter
             takes a comma-separated list of filters. It supports using wildcards to
             match any field or part of a field’s name. You can also exclude fields
@@ -2755,6 +2810,7 @@ class IndicesClient(NamespacedClient):
     @query_params("error_trace", "filter_path", "human", "pretty", "source")
     async def data_streams_stats(
         self,
+        *,
         name: Any = None,
         params: Any = None,
         headers: Any = None,
@@ -2763,7 +2819,7 @@ class IndicesClient(NamespacedClient):
         Provides statistics on operations happening in a data stream.
 
 
-        :arg name: Comma-separated list of data streams used to limit
+        :arg name: A comma-separated list of data streams used to limit
             the request. Wildcard expressions (`*`) are supported. To target all
             data streams in a cluster, omit this parameter or use `*`.
         :arg error_trace: Whether to include the stack trace of returned
@@ -2798,6 +2854,7 @@ class IndicesClient(NamespacedClient):
     )
     async def put_alias(
         self,
+        *,
         index: Any = None,
         name: Any = None,
         body: Any = None,
@@ -2810,7 +2867,7 @@ class IndicesClient(NamespacedClient):
 
         :arg body: The settings for the alias, such as `routing` or
             `filter`
-        :arg index: Comma-separated list of data streams or indexes to
+        :arg index: A comma-separated list of data streams or indexes to
             add. Supports wildcards (`*`). Wildcard patterns that match both data
             streams and indexes return an error.
         :arg name: Alias to update. If the alias doesn't exist, the
